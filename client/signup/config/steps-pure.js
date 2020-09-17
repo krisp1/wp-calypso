@@ -325,7 +325,7 @@ export function generateSteps( {
 
 		'domain-only': {
 			stepName: 'domain-only',
-			providesDependencies: [ 'siteId', 'siteSlug', 'domainItem' ],
+			providesDependencies: [ 'siteId', 'siteSlug', 'domainItem', 'shouldHideFreePlan' ],
 			props: {
 				isDomainOnly: true,
 				shouldShowDomainTestCopy: false,
@@ -334,7 +334,7 @@ export function generateSteps( {
 
 		'select-domain': {
 			stepName: 'select-domain',
-			providesDependencies: [ 'siteId', 'siteSlug', 'domainItem' ],
+			providesDependencies: [ 'siteId', 'siteSlug', 'domainItem', 'shouldHideFreePlan' ],
 			props: {
 				isAllDomains: true,
 				isDomainOnly: true,
