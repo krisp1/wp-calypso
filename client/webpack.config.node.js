@@ -22,6 +22,7 @@ const FileConfig = require( '@automattic/calypso-build/webpack/file-loader' );
 const { shouldTranspileDependency } = require( '@automattic/calypso-build/webpack/util' );
 const nodeExternals = require( 'webpack-node-externals' );
 const { BundleAnalyzerPlugin } = require( 'webpack-bundle-analyzer' );
+const NodeModuler = require( './server/bundler/node-moduler' );
 
 /**
  * Internal variables
@@ -170,6 +171,7 @@ const webpackConfig = {
 			/^calypso[/\\]my-sites[/\\]themes[/\\]theme-upload$/,
 			'components/empty-component'
 		), // Depends on BOM
+		! isDevelopment && new NodeModuler(),
 	].filter( Boolean ),
 };
 
