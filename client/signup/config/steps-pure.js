@@ -342,6 +342,10 @@ export function generateSteps( {
 			},
 		},
 
+		'secure-your-brand': {
+			stepName: 'secure-your-brand',
+		},
+
 		'domains-store': {
 			stepName: 'domains',
 			apiRequestFunction: createSiteWithCart,
