@@ -590,15 +590,27 @@ class RegisterDomainStep extends React.Component {
 	};
 
 	renderContent() {
+		const {
+			isPlanSelectionAvailableInFlow = true,
+			forceHideFreeDomainExplainer = false,
+			selectedFreePlanInSwapFlow,
+			selectedPaidPlanInSwapFlow,
+		} = this.props;
+		const isFreeDomainExplainerVisible =
+			! forceHideFreeDomainExplainer &&
+			isPlanSelectionAvailableInFlow &&
+			! selectedFreePlanInSwapFlow &&
+			! selectedPaidPlanInSwapFlow;
+
 		if ( Array.isArray( this.state.searchResults ) || this.state.loadingResults ) {
-			return this.renderSearchResults();
+			return this.renderSearchResults( isFreeDomainExplainerVisible );
 		}
 
 		if ( this.props.showExampleSuggestions ) {
 			return this.renderExampleSuggestions();
 		}
 
-		return this.renderInitialSuggestions();
+		return this.renderInitialSuggestions( false );
 	}
 
 	save = () => {
@@ -1136,7 +1148,7 @@ class RegisterDomainStep extends React.Component {
 		this.setState( { pageNumber }, this.save );
 	};
 
-	renderInitialSuggestions() {
+	renderInitialSuggestions( isFreeDomainExplainerVisible ) {
 		let domainRegistrationSuggestions;
 		let domainUnavailableSuggestion;
 		let suggestions;
@@ -1154,6 +1166,7 @@ class RegisterDomainStep extends React.Component {
 				return (
 					<DomainRegistrationSuggestion
 						isSignupStep={ this.props.isSignupStep }
+						isFreeDomainExplainerVisible={ isFreeDomainExplainerVisible }
 						suggestion={ suggestion }
 						key={ suggestion.domain_name }
 						cart={ this.props.cart }
@@ -1264,7 +1277,7 @@ class RegisterDomainStep extends React.Component {
 		}
 	};
 
-	renderSearchResults() {
+	renderSearchResults( isFreeDomainExplainerVisible ) {
 		const {
 			exactMatchDomain,
 			lastDomainIsTransferrable,
@@ -1310,19 +1323,10 @@ class RegisterDomainStep extends React.Component {
 			'Domains purchased on a free site will get redirected to your WordPress.com address. You can always upgrade ' +
 			'to a paid plan later and fully use your domain name, instead of having WordPress.com in your URL.';
 
-		const renderCustomDomainForFreePlanExplainer = this.props.shouldHideFreeDomainExplainer && (
+		const renderCustomDomainForFreePlanExplainer = ! isFreeDomainExplainerVisible && (
 			<Notice text={ domainForwardingExplainer } showDismiss={ false } />
 		);
 
-		const {
-			isPlanSelectionAvailableInFlow = true,
-			forceHideFreeDomainExplainer = false,
-		} = this.props;
-		const shouldHideFreeDomainExplainer =
-			forceHideFreeDomainExplainer ||
-			! isPlanSelectionAvailableInFlow ||
-			this.props.selectedFreePlanInSwapFlow ||
-			this.props.selectedPaidPlanInSwapFlow;
 		return (
 			<>
 				{ renderCustomDomainForFreePlanExplainer }
@@ -1349,6 +1353,7 @@ class RegisterDomainStep extends React.Component {
 					offerUnavailableOption={ this.props.offerUnavailableOption }
 					placeholderQuantity={ PAGE_SIZE }
 					isSignupStep={ this.props.isSignupStep }
+					isFreeDomainExplainerVisible={ isFreeDomainExplainerVisible }
 					railcarId={ this.state.railcarId }
 					fetchAlgo={ this.getFetchAlgo() }
 					cart={ this.props.cart }
@@ -1359,7 +1364,7 @@ class RegisterDomainStep extends React.Component {
 				>
 					{ this.props.isSignupStep &&
 						hasResults &&
-						! shouldHideFreeDomainExplainer &&
+						isFreeDomainExplainerVisible &&
 						this.renderFreeDomainExplainer() }
 					{ showTldFilterBar && (
 						<TldFilterBar
