@@ -1323,7 +1323,7 @@ class RegisterDomainStep extends React.Component {
 			'Domains purchased on a free site will get redirected to your WordPress.com address. You can always upgrade ' +
 			'to a paid plan later and fully use your domain name, instead of having WordPress.com in your URL.';
 
-		const renderCustomDomainForFreePlanExplainer = ! isFreeDomainExplainerVisible && (
+		const renderCustomDomainForFreePlanExplainer = this.props.shouldHideFreeDomainExplainer && (
 			<Notice text={ domainForwardingExplainer } showDismiss={ false } />
 		);
 
