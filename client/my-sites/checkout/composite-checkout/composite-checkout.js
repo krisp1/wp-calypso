@@ -549,16 +549,16 @@ export default function CompositeCheckout( {
 		[ couponItem, dataForProcessor, dataForRedirectProcessor, getThankYouUrl, transactionOptions ]
 	);
 
-	useRecordCheckoutLoaded(
+	useRecordCheckoutLoaded( {
 		recordEvent,
-		isInitialCartLoading,
+		isLoadingCart: isInitialCartLoading,
 		isApplePayAvailable,
 		isApplePayLoading,
+		isLoadingStoredCards,
 		responseCart,
 		storedCards,
-		isLoadingStoredCards,
-		productAliasFromUrl
-	);
+		productAliasFromUrl,
+	} );
 
 	const jetpackColors = isJetpackNotAtomic
 		? {
