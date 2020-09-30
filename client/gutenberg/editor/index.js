@@ -12,17 +12,15 @@ import config from 'config';
 import { makeLayout, render as clientRender } from 'controller';
 
 export default function () {
-	page( '', '/post' );
-
 	page( '/site-editor/:site?', siteSelection, authenticate, siteEditor, makeLayout, clientRender );
 
 	page( '/post', siteSelection, sites, makeLayout, clientRender );
-	page( '/post/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 	page( '/post/:site?', siteSelection, makeLayout, clientRender );
+	page( '/post/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 
 	page( '/page', siteSelection, sites, makeLayout, clientRender );
-	page( '/page/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 	page( '/page/:site?', siteSelection, makeLayout, clientRender );
+	page( '/page/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 
 	if ( config.isEnabled( 'manage/custom-post-types' ) ) {
 		page( '/edit/:customPostType', siteSelection, sites, makeLayout, clientRender );
