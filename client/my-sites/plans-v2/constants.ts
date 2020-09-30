@@ -64,23 +64,6 @@ export const SECURITY = 'security';
 // TODO: update before offer reset launch
 export const PLAN_COMPARISON_PAGE = 'https://jetpack.com/features/comparison/';
 
-/**
- * Link to plan comparison page.
- */
-export const MORE_FEATURES_LINK = {
-	url: PLAN_COMPARISON_PAGE,
-	label: translate( 'See all features' ),
-};
-
-/**
- * Define properties with translatable strings getters.
- */
-Object.defineProperties( MORE_FEATURES_LINK, {
-	label: {
-		get: () => translate( 'See all features' ),
-	},
-} );
-
 /*
  * Options displayed in the Product Type filter in the Plans page.
  */
@@ -179,7 +162,6 @@ export const OPTION_PLAN_SECURITY: SelectorProduct = {
 				FEATURE_PRIORITY_SUPPORT_V2,
 			],
 		} ),
-		more: MORE_FEATURES_LINK,
 	},
 };
 export const OPTION_PLAN_SECURITY_MONTHLY: SelectorProduct = {

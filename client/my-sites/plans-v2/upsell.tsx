@@ -23,13 +23,14 @@ import QueryProducts from './query-products';
 import useIsLoading from './use-is-loading';
 import useItemPrice from './use-item-price';
 import {
+	checkout,
 	durationToText,
+	getMoreFeaturesLink,
 	getOptionFromSlug,
 	getProductUpsell,
 	getPathToSelector,
 	getPathToDetails,
 	slugToSelectorProduct,
-	checkout,
 } from './utils';
 import withRedirectToSelector from './with-redirect-to-selector';
 
@@ -166,6 +167,7 @@ const UpsellComponent = ( {
 								'{{name/}} refers to a name of a product such as Jetpack Backup or Jetpack Scan',
 						} ) }
 						features={ upsellProduct.features }
+						moreFeatures={ getMoreFeaturesLink( upsellProduct.productSlug, translate ) }
 						discountedPrice={ discountedPrice }
 						originalPrice={ originalPrice }
 						onButtonClick={ onPurchaseBothProducts }

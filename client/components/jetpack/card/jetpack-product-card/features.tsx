@@ -17,6 +17,7 @@ import FeaturesItem from './features-item';
  */
 import type {
 	ProductCardFeatures,
+	ProductCardMoreFeatures,
 	ProductCardFeaturesSection,
 	ProductCardFeaturesItem,
 } from './types';
@@ -24,12 +25,14 @@ import type {
 export type Props = {
 	className?: string;
 	features: ProductCardFeatures;
+	moreFeatures?: ProductCardMoreFeatures;
 	isExpanded?: boolean;
 };
 
 const JetpackProductCardFeatures: FunctionComponent< Props > = ( {
 	className,
 	features,
+	moreFeatures,
 	isExpanded: isExpandedByDefault,
 } ) => {
 	const trackShowFeatures = useTrackCallback(
@@ -51,7 +54,7 @@ const JetpackProductCardFeatures: FunctionComponent< Props > = ( {
 	}, [ setExpanded, trackHideFeatures ] );
 	const translate = useTranslate();
 
-	const { items, more } = features;
+	const { items } = features;
 
 	return (
 		<FoldableCard
@@ -82,10 +85,10 @@ const JetpackProductCardFeatures: FunctionComponent< Props > = ( {
 					}
 				) }
 			</ul>
-			{ more && (
+			{ moreFeatures && (
 				<div className="jetpack-product-card__feature-more">
-					<ExternalLink icon={ true } href={ more.url }>
-						{ more.label }
+					<ExternalLink icon={ true } href={ moreFeatures.url }>
+						{ moreFeatures.label }
 					</ExternalLink>
 				</div>
 			) }

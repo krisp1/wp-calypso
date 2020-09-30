@@ -17,11 +17,12 @@ import {
 } from '../constants';
 import {
 	durationToText,
-	productButtonLabel,
-	isUpgradeable,
+	getMoreFeaturesLink,
 	getRealtimeFromDaily,
-	slugToSelectorProduct,
+	isUpgradeable,
 	productBadgeLabel,
+	productButtonLabel,
+	slugToSelectorProduct,
 	slugIsFeaturedProduct,
 } from '../utils';
 import PlanRenewalMessage from '../plan-renewal-message';
@@ -192,6 +193,7 @@ const ProductCardWrapper = ( {
 			badgeLabel={ productBadgeLabel( item, isOwned, highlight, translate, sitePlan ) }
 			onButtonClick={ () => onClick( item, isUpgradeableToYearly, purchase ) }
 			features={ item.features }
+			moreFeatures={ getMoreFeaturesLink( item.productSlug, translate ) }
 			children={ item.children }
 			originalPrice={ originalPrice }
 			discountedPrice={ discountedPrice }

@@ -44,6 +44,12 @@ import {
 	JETPACK_LEGACY_PLANS,
 	JETPACK_RESET_PLANS,
 	JETPACK_SECURITY_PLANS,
+	PLAN_JETPACK_COMPLETE,
+	PLAN_JETPACK_COMPLETE_MONTHLY,
+	PLAN_JETPACK_SECURITY_DAILY,
+	PLAN_JETPACK_SECURITY_DAILY_MONTHLY,
+	PLAN_JETPACK_SECURITY_REALTIME,
+	PLAN_JETPACK_SECURITY_REALTIME_MONTHLY,
 } from 'lib/plans/constants';
 import { getPlan, getMonthlyPlanByYearly, planHasFeature } from 'lib/plans';
 import { getFeatureByKey, getFeatureCategoryByKey } from 'lib/plans/features-list';
@@ -60,7 +66,6 @@ import { getJetpackProductTagline } from 'lib/products-values/get-jetpack-produc
 import { getJetpackProductCallToAction } from 'lib/products-values/get-jetpack-product-call-to-action';
 import { getJetpackProductDescription } from 'lib/products-values/get-jetpack-product-description';
 import { getJetpackProductShortName } from 'lib/products-values/get-jetpack-product-short-name';
-import { MORE_FEATURES_LINK } from 'my-sites/plans-v2/constants';
 import { addQueryArgs } from 'lib/route';
 
 /**
@@ -177,11 +182,23 @@ export function productBadgeLabel(
 	}
 }
 
-export function getMoreFeaturesLink( translateFn: Function ) {
-	return {
-		url: PLAN_COMPARISON_PAGE,
-		label: translateFn( 'See all features' ),
-	};
+export function getMoreFeaturesLink( productSlug: string, translateFn: Function ) {
+	switch ( productSlug ) {
+		case OPTIONS_JETPACK_SECURITY:
+		case OPTIONS_JETPACK_SECURITY_MONTHLY:
+		case PLAN_JETPACK_SECURITY_DAILY:
+		case PLAN_JETPACK_SECURITY_DAILY_MONTHLY:
+		case PLAN_JETPACK_SECURITY_REALTIME:
+		case PLAN_JETPACK_SECURITY_REALTIME_MONTHLY:
+		case PLAN_JETPACK_COMPLETE:
+		case PLAN_JETPACK_COMPLETE_MONTHLY:
+			return {
+				url: PLAN_COMPARISON_PAGE,
+				label: translateFn( 'See all features' ),
+			};
+		default:
+			return undefined;
+	}
 }
 
 export function getProductTypeOptions( translateFn: Function ) {
@@ -379,7 +396,6 @@ export function itemToSelectorProduct(
 			term: item.term === TERM_BIENNIALLY ? TERM_ANNUALLY : item.term,
 			features: {
 				items: buildCardFeaturesFromItem( item ),
-				more: MORE_FEATURES_LINK,
 			},
 			legacy: ! isResetPlan,
 		};

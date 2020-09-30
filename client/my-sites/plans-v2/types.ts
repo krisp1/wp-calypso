@@ -86,10 +86,11 @@ export type SelectorProductFeaturesSection = {
 
 export type SelectorProductFeatures = {
 	items: SelectorProductFeaturesItem[] | SelectorProductFeaturesSection[];
-	more?: {
-		url: string;
-		label: TranslateResult;
-	};
+};
+
+export type SelectorProductMoreFeatures = {
+	url: string;
+	label: TranslateResult;
 };
 
 export interface SelectorProduct extends SelectorProductCost {
