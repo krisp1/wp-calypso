@@ -164,38 +164,6 @@ export const authenticate = ( context, next ) => {
 	}
 };
 
-export const redirect = async ( context, next ) => {
-	const {
-		store: { getState },
-	} = context;
-	const tmpState = getState();
-	const selectedEditor = getSelectedEditor( tmpState, getSelectedSiteId( tmpState ) );
-	if ( ! selectedEditor ) {
-		await waitForSiteIdAndSelectedEditor( context );
-	}
-
-	const state = getState();
-	const siteId = getSelectedSiteId( state );
-
-	if ( shouldRedirectGutenberg( state, siteId ) ) {
-		const postType = determinePostType( context );
-		const postId = getPostID( context );
-
-		const url =
-			postType || ! isSiteUsingCoreSiteEditor( state, siteId )
-				? getGutenbergEditorUrl( state, siteId, postId, postType )
-				: getSiteEditorUrl( state, siteId );
-		// pass along parameters, for example press-this
-		return window.location.replace( addQueryArgs( context.query, url ) );
-	}
-
-	if ( shouldLoadGutenberg( state, siteId ) ) {
-		return next();
-	}
-
-	return page.redirect( `/post/${ getSelectedSiteSlug( state ) }` );
-};
-
 function getPressThisData( query ) {
 	const { text, url, title, image, embed } = query;
 	return url ? { text, url, title, image, embed } : null;
