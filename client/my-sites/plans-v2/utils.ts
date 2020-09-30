@@ -10,6 +10,7 @@ import React, { createElement, Fragment } from 'react';
  * Internal dependencies
  */
 import {
+	ALL,
 	DAILY_PLAN_TO_REALTIME_PLAN,
 	DAILY_PRODUCTS,
 	EXTERNAL_PRODUCTS_LIST,
@@ -23,8 +24,11 @@ import {
 	OPTIONS_JETPACK_SECURITY,
 	OPTIONS_JETPACK_SECURITY_MONTHLY,
 	OPTIONS_SLUG_MAP,
+	PERFORMANCE,
+	PLAN_COMPARISON_PAGE,
 	PRODUCTS_WITH_OPTIONS,
 	REALTIME_PRODUCTS,
+	SECURITY,
 	SUBTYPE_TO_OPTION,
 	UPGRADEABLE_WITH_NUDGE,
 	UPSELL_PRODUCT_MATRIX,
@@ -44,9 +48,11 @@ import {
 import { getPlan, getMonthlyPlanByYearly, planHasFeature } from 'lib/plans';
 import { getFeatureByKey, getFeatureCategoryByKey } from 'lib/plans/features-list';
 import {
-	JETPACK_SEARCH_PRODUCTS,
-	JETPACK_PRODUCT_PRICE_MATRIX,
 	JETPACK_BACKUP_PRODUCTS,
+	JETPACK_PRODUCT_PRICE_MATRIX,
+	JETPACK_SEARCH_PRODUCTS,
+	PRODUCT_JETPACK_CRM,
+	PRODUCT_JETPACK_CRM_MONTHLY,
 } from 'lib/products-values/constants';
 import { Product, JETPACK_PRODUCTS_LIST, objectIsProduct } from 'lib/products-values/products-list';
 import { getJetpackProductDisplayName } from 'lib/products-values/get-jetpack-product-display-name';
@@ -63,6 +69,7 @@ import { addQueryArgs } from 'lib/route';
 import type {
 	Duration,
 	SelectorProduct,
+	SelectorProductCopy,
 	SelectorProductSlug,
 	DurationString,
 	SelectorProductFeaturesItem,
@@ -165,6 +172,83 @@ export function productBadgeLabel(
 
 	if ( highlight && slugIsFeaturedProduct( product.productSlug ) ) {
 		return translate( 'Best Value' );
+	}
+}
+
+export function getMoreFeaturesLink( translateFn: Function ) {
+	return {
+		url: PLAN_COMPARISON_PAGE,
+		label: translateFn( 'See all features' ),
+	};
+}
+
+export function getProductTypeOptions( translateFn: Function ) {
+	return {
+		[ SECURITY ]: {
+			id: SECURITY,
+			label: translateFn( 'Security' ),
+		},
+		[ PERFORMANCE ]: {
+			id: PERFORMANCE,
+			label: translateFn( 'Performance' ),
+		},
+		[ ALL ]: {
+			id: ALL,
+			label: translateFn( 'All' ),
+		},
+	};
+}
+
+export function getSelectorProductCopy(
+	productSlug: string,
+	translateFn: Function
+): SelectorProductCopy {
+	const securityCopy = {
+		displayName: translateFn( 'Jetpack Security' ),
+		shortName: translateFn( 'Security', {
+			comment: 'Short name of the Jetpack Security generic plan',
+		} ),
+		tagline: translateFn( 'Comprehensive WordPress protection' ),
+		description: translateFn(
+			'Enjoy the peace of mind of complete site security. ' +
+				'Easy-to-use, powerful security tools guard your site, so you can focus on your business.'
+		),
+	};
+
+	const backupCopy = {
+		displayName: translateFn( 'Jetpack Backup' ),
+		shortName: translateFn( 'Backup', {
+			comment: 'Short name of the Jetpack Backup generic product',
+		} ),
+		tagline: translateFn( 'Recommended for all sites' ),
+		description: translateFn( 'Never lose a word, image, page, or time worrying about your site.' ),
+		buttonLabel: translateFn( 'Get Backup' ),
+	};
+
+	const crmCopy = {
+		displayName: translateFn( 'Jetpack CRM' ),
+		shortName: translateFn( 'CRM', {
+			comment: 'Short name of the Jetpack CRM',
+		} ),
+		tagline: translateFn( 'Manage contacts effortlessly' ),
+		description: translateFn(
+			'The most simple and powerful WordPress CRM. Improve customer relationships and increase profits.'
+		),
+		buttonLabel: translateFn( 'Get CRM' ),
+	};
+
+	switch ( productSlug ) {
+		case OPTIONS_JETPACK_SECURITY:
+		case OPTIONS_JETPACK_SECURITY_MONTHLY:
+			return securityCopy;
+		case OPTIONS_JETPACK_BACKUP:
+		case OPTIONS_JETPACK_BACKUP_MONTHLY:
+			return backupCopy;
+		case PRODUCT_JETPACK_CRM:
+		case PRODUCT_JETPACK_CRM_MONTHLY:
+			return crmCopy;
+		default:
+			throw `Unknown SelectorProductSlug: ${ productSlug }`;
 	}
 }
 
