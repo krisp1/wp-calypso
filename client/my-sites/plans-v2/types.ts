@@ -114,6 +114,14 @@ export interface SelectorProduct extends SelectorProductCost {
 	externalUrl?: string;
 }
 
+export interface SelectorProductCopy {
+	displayName: TranslateResult;
+	shortName: TranslateResult;
+	tagline: TranslateResult;
+	description: TranslateResult | ReactNode;
+	buttonLabel?: TranslateResult;
+}
+
 export interface AvailableProductData {
 	product_slug: string;
 	cost: number;
