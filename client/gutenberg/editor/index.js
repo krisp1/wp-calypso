@@ -15,10 +15,12 @@ export default function () {
 	page( '/site-editor/:site?', siteSelection, authenticate, siteEditor, makeLayout, clientRender );
 
 	page( '/post', siteSelection, sites, makeLayout, clientRender );
+	page( '/post/new', () => page.redirect( '/post' ) ); // redirect from beep-beep-boop
 	page( '/post/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 	page( '/post/:site?', siteSelection, makeLayout, clientRender );
 
 	page( '/page', siteSelection, sites, makeLayout, clientRender );
+	page( '/page/new', () => page.redirect( '/page' ) ); // redirect from beep-beep-boop
 	page( '/page/:site/:post?', siteSelection, authenticate, post, makeLayout, clientRender );
 	page( '/page/:site?', siteSelection, makeLayout, clientRender );
 
