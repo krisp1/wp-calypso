@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { translate, TranslateResult } from 'i18n-calypso';
+import { TranslateResult } from 'i18n-calypso';
 import { compact, get, isArray, isObject } from 'lodash';
 import page from 'page';
 import React, { createElement, Fragment } from 'react';
