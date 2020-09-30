@@ -19,7 +19,6 @@ import config from 'config';
 import { shouldShowOfferResetFlow } from 'lib/plans/config';
 import { isPartnerPurchase } from 'lib/purchases';
 import JetpackReferrerMessage from './jetpack-referrer-message';
-import JetpackUpgradeMessage from './jetpack-upgrade-message';
 import { connectOptions } from './theme-options';
 import UpsellNudge from 'blocks/upsell-nudge';
 import { FEATURE_UNLIMITED_PREMIUM_THEMES, PLAN_JETPACK_BUSINESS } from 'lib/plans/constants';
@@ -31,7 +30,7 @@ import { addTracking } from './helpers';
 import { getCurrentPlan, hasFeature, isRequestingSitePlans } from 'state/sites/plans/selectors';
 import { getByPurchaseId } from 'state/purchases/selectors';
 import { getLastThemeQuery, getThemesFoundForQuery } from 'state/themes/selectors';
-import { hasJetpackSiteJetpackThemes, isJetpackSiteMultiSite } from 'state/sites/selectors';
+import { isJetpackSiteMultiSite } from 'state/sites/selectors';
 
 const ConnectedThemesSelection = connectOptions( ( props ) => {
 	return (
@@ -55,7 +54,6 @@ const ConnectedSingleSiteJetpack = connectOptions( ( props ) => {
 		emptyContent,
 		filter,
 		getScreenshotOption,
-		hasJetpackThemes,
 		purchase,
 		showWpcomThemesList,
 		search,
@@ -76,9 +74,6 @@ const ConnectedSingleSiteJetpack = connectOptions( ( props ) => {
 				analyticsPageTitle={ analyticsPageTitle }
 			/>
 		);
-	}
-	if ( ! hasJetpackThemes ) {
-		return <JetpackUpgradeMessage siteId={ siteId } />;
 	}
 
 	const isPartnerPlan = purchase && isPartnerPurchase( purchase );
@@ -171,7 +166,6 @@ export default connect( ( state, { siteId, tier } ) => {
 	}
 	return {
 		currentPlan,
-		hasJetpackThemes: hasJetpackSiteJetpackThemes( state, siteId ),
 		purchase: currentPlan ? getByPurchaseId( state, currentPlan.id ) : null,
 		tier,
 		showWpcomThemesList,
