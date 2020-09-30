@@ -108,10 +108,10 @@ export function durationToString( duration: Duration ): DurationString {
 	return duration === TERM_MONTHLY ? 'monthly' : 'annual';
 }
 
-export function durationToText( duration: Duration ): TranslateResult {
+export function durationToText( duration: Duration, translateFn: Function ): TranslateResult {
 	return duration === TERM_MONTHLY
-		? translate( 'per month, billed monthly' )
-		: translate( 'per month, billed yearly' );
+		? translateFn( 'per month, billed monthly' )
+		: translateFn( 'per month, billed yearly' );
 }
 
 /**

@@ -3,6 +3,7 @@
  */
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslate } from 'i18n-calypso';
 import { useMobileBreakpoint } from '@automattic/viewport-react';
 
 /**
@@ -64,6 +65,8 @@ interface UpgradeNudgeProps {
 }
 
 const UpgradeNudgeWrapper = ( { siteId, item, currencyCode, onClick }: UpgradeNudgeProps ) => {
+	const translate = useTranslate();
+
 	const upgradeToProductSlug =
 		getRealtimeFromDaily( item.costProductSlug || item.productSlug ) || '';
 	const selectorProductToUpgrade = slugToSelectorProduct( upgradeToProductSlug );
@@ -80,7 +83,7 @@ const UpgradeNudgeWrapper = ( { siteId, item, currencyCode, onClick }: UpgradeNu
 
 	return (
 		<JetpackProductCardUpgradeNudge
-			billingTimeFrame={ durationToText( selectorProductToUpgrade.term ) }
+			billingTimeFrame={ durationToText( selectorProductToUpgrade.term, translate ) }
 			currencyCode={ currencyCode }
 			discountedPrice={ discountedPrice }
 			originalPrice={ originalPrice }
@@ -109,6 +112,8 @@ const ProductCardWrapper = ( {
 	highlight = false,
 	selectedTerm,
 }: ProductCardProps ) => {
+	const translate = useTranslate();
+
 	// Determine whether product is owned.
 	const sitePlan = useSelector( ( state ) => getSitePlan( state, siteId ) );
 	const siteProducts = useSelector( ( state ) => getSiteProducts( state, siteId ) );
@@ -176,7 +181,7 @@ const ProductCardWrapper = ( {
 			subheadline={ item.tagline }
 			description={ showExpiryNotice && purchase ? <PlanRenewalMessage /> : item.description }
 			currencyCode={ currencyCode }
-			billingTimeFrame={ durationToText( item.term ) }
+			billingTimeFrame={ durationToText( item.term, translate ) }
 			buttonLabel={ productButtonLabel( item, isOwned, isUpgradeableToYearly, sitePlan ) }
 			badgeLabel={ productBadgeLabel( item, isOwned, highlight, sitePlan ) }
 			onButtonClick={ () => onClick( item, isUpgradeableToYearly, purchase ) }

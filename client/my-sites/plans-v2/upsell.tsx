@@ -157,7 +157,7 @@ const UpsellComponent = ( {
 						subheadline={ upsellProduct.tagline }
 						description={ upsellProduct.description }
 						currencyCode={ currencyCode }
-						billingTimeFrame={ durationToText( upsellProduct.term ) }
+						billingTimeFrame={ durationToText( upsellProduct.term, translate ) }
 						buttonLabel={ translate( 'Yes, add {{name/}}', {
 							components: {
 								name: <>{ upsellProductName }</>,
