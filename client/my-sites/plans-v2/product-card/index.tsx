@@ -182,7 +182,13 @@ const ProductCardWrapper = ( {
 			description={ showExpiryNotice && purchase ? <PlanRenewalMessage /> : item.description }
 			currencyCode={ currencyCode }
 			billingTimeFrame={ durationToText( item.term, translate ) }
-			buttonLabel={ productButtonLabel( item, isOwned, isUpgradeableToYearly, sitePlan ) }
+			buttonLabel={ productButtonLabel(
+				item,
+				isOwned,
+				isUpgradeableToYearly,
+				translate,
+				sitePlan
+			) }
 			badgeLabel={ productBadgeLabel( item, isOwned, highlight, sitePlan ) }
 			onButtonClick={ () => onClick( item, isUpgradeableToYearly, purchase ) }
 			features={ item.features }

@@ -122,10 +122,11 @@ export function productButtonLabel(
 	product: SelectorProduct,
 	isOwned: boolean,
 	isUpgradeableToYearly: boolean,
+	translateFn: Function,
 	currentPlan?: SitePlan | null
 ): TranslateResult {
 	if ( isUpgradeableToYearly ) {
-		return translate( 'Upgrade to Yearly' );
+		return translateFn( 'Upgrade to Yearly' );
 	}
 
 	if (
@@ -133,15 +134,15 @@ export function productButtonLabel(
 		( currentPlan && planHasFeature( currentPlan.product_slug, product.productSlug ) )
 	) {
 		return product.type !== ITEM_TYPE_PRODUCT
-			? translate( 'Manage Plan' )
-			: translate( 'Manage Subscription' );
+			? translateFn( 'Manage Plan' )
+			: translateFn( 'Manage Subscription' );
 	}
 
 	const { buttonLabel, displayName } = product;
 
 	return (
 		buttonLabel ??
-		translate( 'Get {{name/}}', {
+		translateFn( 'Get {{name/}}', {
 			components: {
 				name: createElement( Fragment, {}, displayName ),
 			},
