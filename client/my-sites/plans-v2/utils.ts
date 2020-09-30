@@ -159,20 +159,21 @@ export function productBadgeLabel(
 	product: SelectorProduct,
 	isOwned: boolean,
 	highlight: boolean,
+	translateFn: Function,
 	currentPlan?: SitePlan | null
 ): TranslateResult | undefined {
 	if ( isOwned ) {
 		return slugIsJetpackPlanSlug( product.productSlug )
-			? translate( 'Your plan' )
-			: translate( 'You own this' );
+			? translateFn( 'Your plan' )
+			: translateFn( 'You own this' );
 	}
 
 	if ( currentPlan && planHasFeature( currentPlan.product_slug, product.productSlug ) ) {
-		return translate( 'Included in your plan' );
+		return translateFn( 'Included in your plan' );
 	}
 
 	if ( highlight && slugIsFeaturedProduct( product.productSlug ) ) {
-		return translate( 'Best Value' );
+		return translateFn( 'Best Value' );
 	}
 }
 

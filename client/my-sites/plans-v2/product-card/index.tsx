@@ -189,7 +189,7 @@ const ProductCardWrapper = ( {
 				translate,
 				sitePlan
 			) }
-			badgeLabel={ productBadgeLabel( item, isOwned, highlight, sitePlan ) }
+			badgeLabel={ productBadgeLabel( item, isOwned, highlight, translate, sitePlan ) }
 			onButtonClick={ () => onClick( item, isUpgradeableToYearly, purchase ) }
 			features={ item.features }
 			children={ item.children }
