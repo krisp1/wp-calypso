@@ -674,11 +674,13 @@ export function getPathToUpsell(
  * Append "Available Options: Real-time and Daily" to the product description.
  *
  * @param product SelectorProduct
+ * @param translateFn Function The translate function, ideally retrieved from useTranslate().
  *
  * @returns ReactNode | TranslateResult
  */
 export const getJetpackDescriptionWithOptions = (
-	product: SelectorProduct
+	product: SelectorProduct,
+	translateFn: Function
 ): React.ReactNode | TranslateResult => {
 	const em = React.createElement( 'em', null, null );
 
@@ -686,7 +688,7 @@ export const getJetpackDescriptionWithOptions = (
 	// then append "Available options: Real-time or Daily" to the product description.
 	return product.subtypes.some( ( subtype ) => DAILY_PRODUCTS.includes( subtype ) ) &&
 		product.subtypes.some( ( subtype ) => REALTIME_PRODUCTS.includes( subtype ) )
-		? translate( '%(productDescription)s {{em}}Available options: Real-time or Daily.{{/em}}', {
+		? translateFn( '%(productDescription)s {{em}}Available options: Real-time or Daily.{{/em}}', {
 				args: {
 					productDescription: product.description,
 				},
