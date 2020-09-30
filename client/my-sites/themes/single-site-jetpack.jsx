@@ -31,11 +31,7 @@ import { addTracking } from './helpers';
 import { getCurrentPlan, hasFeature, isRequestingSitePlans } from 'state/sites/plans/selectors';
 import { getByPurchaseId } from 'state/purchases/selectors';
 import { getLastThemeQuery, getThemesFoundForQuery } from 'state/themes/selectors';
-import {
-	hasJetpackSiteJetpackThemes,
-	hasJetpackSiteJetpackThemesExtendedFeatures,
-	isJetpackSiteMultiSite,
-} from 'state/sites/selectors';
+import { hasJetpackSiteJetpackThemes, isJetpackSiteMultiSite } from 'state/sites/selectors';
 
 const ConnectedThemesSelection = connectOptions( ( props ) => {
 	return (
@@ -164,8 +160,7 @@ const ConnectedSingleSiteJetpack = connectOptions( ( props ) => {
 export default connect( ( state, { siteId, tier } ) => {
 	const currentPlan = getCurrentPlan( state, siteId );
 	const isMultisite = isJetpackSiteMultiSite( state, siteId );
-	const showWpcomThemesList =
-		hasJetpackSiteJetpackThemesExtendedFeatures( state, siteId ) && ! isMultisite;
+	const showWpcomThemesList = ! isMultisite;
 	let emptyContent = null;
 	if ( showWpcomThemesList ) {
 		const siteQuery = getLastThemeQuery( state, siteId );
