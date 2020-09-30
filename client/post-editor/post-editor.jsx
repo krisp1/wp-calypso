@@ -66,8 +66,6 @@ import EditorPostTypeUnsupported from 'post-editor/editor-post-type-unsupported'
 import EditorForbidden from 'post-editor/editor-forbidden';
 import EditorNotice from 'post-editor/editor-notice';
 import EditorGutenbergOptInNotice from 'post-editor/editor-gutenberg-opt-in-notice';
-import EditorGutenbergDialogs from 'post-editor/editor-gutenberg-dialogs';
-import EditorDeprecationDialog from 'post-editor/editor-deprecation-dialog';
 import EditorWordCount from 'post-editor/editor-word-count';
 import { savePreference } from 'state/preferences/actions';
 import { getPreference } from 'state/preferences/selectors';
@@ -86,7 +84,6 @@ import EditorRevisionsDialog from 'post-editor/editor-revisions/dialog';
 import PageViewTracker from 'lib/analytics/page-view-tracker';
 import { pauseGuidedTour } from 'state/guided-tours/actions';
 import inEditorDeprecationGroup from 'state/editor-deprecation-group/selectors/in-editor-deprecation-group';
-import { isEnabled } from 'config';
 
 /**
  * Style dependencies
@@ -302,11 +299,6 @@ export class PostEditor extends React.Component {
 				<EditorPostTypeUnsupported />
 				<EditorForbidden />
 				<EditorRevisionsDialog loadRevision={ this.loadRevision } />
-				{ /* This condition needs to be kept in sync with https://github.com/Automattic/wp-calypso/blob/680cc77f39400aab3e090c373630c8dd0f1887cd/client/post-editor/editor-gutenberg-dialogs/index.tsx#L84*/ }
-				{ ! this.props.isEditorDeprecated && ! isEnabled( 'desktop' ) && (
-					<EditorDeprecationDialog />
-				) }
-				<EditorGutenbergDialogs />
 				<div className="post-editor__inner">
 					<EditorGroundControl
 						setPostDate={ this.setPostDate }
