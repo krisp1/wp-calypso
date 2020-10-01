@@ -12,6 +12,7 @@ import { shouldLoadGutenberg } from 'state/selectors/should-load-gutenberg';
 import { shouldRedirectGutenberg } from 'state/selectors/should-redirect-gutenberg';
 import { EDITOR_START, POST_EDIT } from 'state/action-types';
 import { getSelectedSiteId, getSelectedSiteSlug } from 'state/ui/selectors';
+import { stopEditingPost } from 'state/editor/actions';
 import CalypsoifyIframe from './calypsoify-iframe';
 import getGutenbergEditorUrl from 'state/selectors/get-gutenberg-editor-url';
 import { addQueryArgs } from 'lib/route';
@@ -222,4 +223,15 @@ export const siteEditor = ( context, next ) => {
 	);
 
 	return next();
+};
+
+export const exitPost = ( context, next ) => {
+	const postId = getPostID( context );
+	console.log( { postId } );
+
+	const siteId = getSelectedSiteId( context.store.getState() );
+	if ( siteId ) {
+		context.store.dispatch( stopEditingPost( siteId, postId ) );
+	}
+	next();
 };
