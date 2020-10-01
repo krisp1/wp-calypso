@@ -65,7 +65,7 @@ const PlansFilterBar = ( {
 	const productTypeOptions = getProductTypeOptions( translate );
 
 	// To observe the error, comment out this line:
-	console.log( Object.values( PRODUCT_TYPE_OPTIONS ) );
+	PRODUCT_TYPE_OPTIONS;
 
 	return (
 		<div ref={ barRef } className={ classNames( 'plans-filter-bar', { sticky: hasCrossed } ) }>
