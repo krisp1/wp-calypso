@@ -64,48 +64,6 @@ export const SECURITY = 'security';
 // TODO: update before offer reset launch
 export const PLAN_COMPARISON_PAGE = 'https://jetpack.com/features/comparison/';
 
-/*
- * Options displayed in the Product Type filter in the Plans page.
- */
-export const PRODUCT_TYPE_OPTIONS = {
-	[ SECURITY ]: {
-		id: SECURITY,
-		label: translate( 'Security' ),
-	},
-	[ PERFORMANCE ]: {
-		id: PERFORMANCE,
-		label: translate( 'Performance' ),
-	},
-	[ ALL ]: {
-		id: ALL,
-		label: translate( 'All' ),
-	},
-};
-
-/**
- * Define properties with translatable strings getters.
- */
-Object.defineProperties( PRODUCT_TYPE_OPTIONS, {
-	[ SECURITY ]: {
-		get: () => ( {
-			id: SECURITY,
-			label: translate( 'Security' ),
-		} ),
-	},
-	[ PERFORMANCE ]: {
-		get: () => ( {
-			id: PERFORMANCE,
-			label: translate( 'Performance' ),
-		} ),
-	},
-	[ ALL ]: {
-		get: () => ( {
-			id: ALL,
-			label: translate( 'All' ),
-		} ),
-	},
-} );
-
 /**
  * Plans and products that have options and can't be purchased themselves.
  */

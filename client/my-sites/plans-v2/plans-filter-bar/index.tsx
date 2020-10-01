@@ -14,7 +14,6 @@ import SelectDropdown from 'components/select-dropdown';
 import isJetpackCloud from 'lib/jetpack/is-jetpack-cloud';
 import { TERM_MONTHLY, TERM_ANNUALLY } from 'lib/plans/constants';
 import { masterbarIsVisible } from 'state/ui/selectors';
-import { PRODUCT_TYPE_OPTIONS } from '../constants';
 import useDetectWindowBoundary from '../use-detect-window-boundary';
 import { getProductTypeOptions } from '../utils';
 
@@ -63,9 +62,6 @@ const PlansFilterBar = ( {
 	const hasCrossed = useDetectWindowBoundary( barRef, masterbarOffset );
 
 	const productTypeOptions = getProductTypeOptions( translate );
-
-	// To observe the error, comment out this line:
-	PRODUCT_TYPE_OPTIONS;
 
 	return (
 		<div ref={ barRef } className={ classNames( 'plans-filter-bar', { sticky: hasCrossed } ) }>

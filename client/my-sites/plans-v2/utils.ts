@@ -9,6 +9,7 @@ import React, { createElement, Fragment } from 'react';
 /**
  * Internal dependencies
  */
+import { getFeatureByKey, getFeatureCategoryByKey } from 'lib/plans/features-list';
 import {
 	ALL,
 	DAILY_PLAN_TO_REALTIME_PLAN,
@@ -52,7 +53,6 @@ import {
 	PLAN_JETPACK_SECURITY_REALTIME_MONTHLY,
 } from 'lib/plans/constants';
 import { getPlan, getMonthlyPlanByYearly, planHasFeature } from 'lib/plans';
-import { getFeatureByKey, getFeatureCategoryByKey } from 'lib/plans/features-list';
 import {
 	JETPACK_BACKUP_PRODUCTS,
 	JETPACK_PRODUCT_PRICE_MATRIX,
