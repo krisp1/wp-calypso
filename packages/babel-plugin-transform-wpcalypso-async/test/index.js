@@ -103,7 +103,7 @@ describe( 'babel-plugin-transform-wpcalypso-async', () => {
 		} );
 	} );
 
-	describe( 'AsyncLoad with further import transformation', () => {
+	test( 'AsyncLoad with further import transformation', () => {
 		// Babel plugin that transforms import() into patchedImport()
 		const patchImportPlugin = ( { types } ) => ( {
 			visitor: {
